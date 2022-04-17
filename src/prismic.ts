@@ -1,9 +1,9 @@
 import * as prismic from "@prismicio/client";
 import { getAllLikes } from "./supabase";
+import capitalize from "lodash/capitalize.js";
+import slugify from "slugify";
 
 const API_ENDPOINT = "https://amazing-interactions.prismic.io/api/v2";
-import * as _ from "lodash";
-import slugify from "slugify";
 const client = prismic.createClient(API_ENDPOINT);
 
 let cachedPrismicPosts, cachedPrismicPages;
@@ -51,7 +51,7 @@ export async function getAllPosts() {
     post.tags.forEach((tag) => {
       if (!tags[tag]) {
         tags[tag] = {
-          name: _.capitalize(tag),
+          name: capitalize(tag),
           count: 1,
           posts: [post],
           uid: slugify(tag),
