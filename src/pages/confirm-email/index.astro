@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ConfirmEmail from '../../components/ConfirmEmail.svelte';
+import { getAllPosts } from '../../prismic.ts';
+
+const {posts, tags} = await getAllPosts();
+let title = 'Confirm Email - Happy Clicks - Delightful Interaction Inspiration';
+
+---
+<BaseLayout title={title} permalink={'https://happyclicks.dev/confirm-email'}  tags={tags} >
+  <main class="hacl-container">
+   <ConfirmEmail client:load/>
+  </main>
+</BaseLayout>

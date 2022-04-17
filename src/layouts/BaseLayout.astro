@@ -1,0 +1,100 @@
+---
+// src/layouts/BaseLayout.astro
+export interface Props {
+  title: string;
+  description?: string|undefined;
+  permalink: string;
+  tags: object;
+  ogImage?:string|undefined;
+}
+  import "../styles/style.scss";
+  import BaseHead from '../components/BaseHead.astro';
+  import SiteNav from '../components/SiteNav.svelte';
+  import Footer from '../components/Footer.svelte';
+
+const { title, description="A collection of delightful interaction inspiration, organized by category for use on your next project.", permalink, tags, ogImage } = Astro.props;
+
+// import "@fontsource/josefin-sans"
+
+const pageOGImage = ogImage || "https://happyclicks.dev/assets/og-image.png"
+---
+  
+<html>
+
+  <head>
+   <BaseHead title={title} permalink={permalink} description={description} ogImage={pageOGImage} />
+  </head>
+  <body>
+    <!-- Adds a navigation bar to every page. -->
+    <header>
+    <SiteNav client:load />
+    </header>
+    <!-- slot: your page content will be injected here. -->
+      <slot />
+  <Footer tags={tags} />
+  </body>
+
+</html>
+
+<script>
+// Need to wait for the page to be loaded in before running these!
+const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+const allVideos = document.querySelectorAll(".hacl-card__video");
+const nav = document.querySelector(".hacl-sitenav__navigation");
+const autoPlayVideosToggle = document.querySelector("#hacl-sitenav__reduced-motion-toggle");
+const storage = window.localStorage;
+let reduceMotion = storage.getItem("reduceMotion");
+var lazyLoadInstance;
+
+const pauseAllVideos = () => {
+  allVideos.forEach((v) => {
+    v.pause();
+    v.removeAttribute("autoplay");
+    v.addEventListener("mouseover", () => {
+      v.play();
+    });
+    v.addEventListener("mouseleave", () => {
+      if (reduceMotion) {
+        v.pause();
+      }
+    });
+  });
+};
+
+const playAllVideos = () => {
+  allVideos.forEach((v) => {
+    v.play();
+    v.setAttribute("autoplay", "true");
+  });
+};
+
+if (reduceMotion === null) {
+  storage.setItem("reduceMotion", !!mediaQuery.matches);
+} else {
+  reduceMotion = reduceMotion === "true";
+}
+
+autoPlayVideosToggle.addEventListener("change", function (e) {
+  const result = !e.target.checked;
+  reduceMotion = result;
+  storage.setItem("reduceMotion", result);
+  if (result) {
+    pauseAllVideos();
+  } else {
+    playAllVideos();
+  }
+});
+
+if (reduceMotion) {
+  // Prefers Reduced Motion
+  autoPlayVideosToggle.checked = false;
+  pauseAllVideos();
+} else {
+  autoPlayVideosToggle.checked = true;
+  playAllVideos();
+}
+
+console.log("Yeah")
+lazyLoadInstance = new LazyLoad();
+
+</script>

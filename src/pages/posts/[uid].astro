@@ -1,0 +1,108 @@
+---
+import { getAllPosts } from '../../prismic.ts';
+import GlobeIcon from '../../components/icons/GlobeIcon.jsx'
+import HeartIcon from '../../components/icons/HeartIcon.jsx'
+import UserIcon from '../../components/icons/UserIcon.jsx'
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import VideoPlayer from '../../components/VideoPlayer.svelte'
+import CardGrid from '../../components/CardGrid.svelte';
+import HorizontalTagList from '../../components/HorizontalTagList.svelte';
+import LikeButton from '../../components/LikeButton.svelte';
+
+export async function getStaticPaths() {
+  const {posts, tags} = await getAllPosts()
+  return posts.map(post => {
+    return { params: { uid: post.uid }, props: { post, tags, posts }}
+  })
+}
+
+
+const { post, tags, posts } = Astro.props;
+let recommendedPosts = {};
+
+// Get the current posts's tags
+const currentTags = post.tags
+// Find posts from those tags
+currentTags.forEach(tag=>{
+  tags[tag].posts.forEach(post=>{
+    recommendedPosts[post.uid] = post
+  })
+})
+// Remove current post from the list
+delete recommendedPosts[post.uid]
+// Fill with other posts from other tags
+
+function addAdditionalPosts(){
+  if(Object.keys(recommendedPosts).length>=6){
+    return
+    }
+  // get random post from posts
+  const randomPost = posts[Math.floor(Math.random()*posts.length)]
+  recommendedPosts[randomPost.uid] = randomPost
+  // check if there are still less than 4 posts in the list
+  addAdditionalPosts()
+}
+
+addAdditionalPosts()
+const recommendedPostsArray = Object.values(recommendedPosts).slice(0,6)
+  const {source_name, source_url,creator_name, creator_url, submitted_by, alt_text, uid, title, cloudinary_video_id, likeCount } = post
+
+---
+
+<BaseLayout
+  title={`${title} - Happy Clicks - Delightful Interaction Inspiration`}
+  description={alt_text}
+  permalink={`https://happyclicks.dev/posts/${uid}`}
+  tags={tags}
+  ogImage={`https://res.cloudinary.com/frontendhorse/video/upload/c_fill,g_center,h_630,w_1200/g_south_west,l_happyclicks:watermark.png/happyclicks/${ cloudinary_video_id}.png`}
+>
+<main class="hacl-container">
+  <HorizontalTagList tags={tags} client:load pagePath={`/posts/${uid}`} />
+  <article class="hacl-mx-auto hacl-post">
+  <h1 class="sr-only">{source_name}</h1>
+    <VideoPlayer videoId={cloudinary_video_id} />
+    <div class="hacl-post__titleBar">
+       <span>{source_name}</span> 
+       <LikeButton likeCount={likeCount} uid={uid} client:idle />
+    </div>
+
+     <section class="hacl-post__meta">
+      {(source_name || source_url) && (
+        <>
+        <h2 class="hacl-post__subheading hacl-h4">Source</h2>
+        <div class="hacl-post__meta-item">
+       <GlobeIcon  height="18" width="18"/>
+        <a href={source_url} target="_blank" rel="noreferrer">{source_name}</a></div>
+     </>
+      )}
+       {(creator_name || creator_url) && (
+        <>
+        <h2 class="hacl-post__subheading hacl-h4">Creator</h2>
+        <div class="hacl-post__meta-item">
+       <UserIcon  height="18" width="18"/>
+        <a href={creator_url} target="_blank" rel="noreferrer">{creator_name}</a></div>
+     </>
+      )}
+       {submitted_by && (
+        <>
+        <h2 class="hacl-post__subheading hacl-h4">Submitted by</h2>
+        <div class="hacl-post__meta-item">
+       <HeartIcon  height="18" width="18"/>
+        {submitted_by}</div>
+     </>
+      )}
+       <ul class="hacl-post__tag-list">
+        {post.tags.map((tag) => (
+          <li class="hacl-post__tag-list-item">
+            <a href={`/categories/${tags[tag].uid}`} class="hacl-tag">
+              #{tags[tag].name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+    <h2 class="hacl-h4">You might also enjoy</h2>
+   <CardGrid posts={recommendedPostsArray} paused={true} />
+  </main>
+</BaseLayout>

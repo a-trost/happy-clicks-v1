@@ -1,0 +1,29 @@
+<script>
+  export let videoId, altText;
+</script>
+
+<video
+  poster={`https://res.cloudinary.com/frontendhorse/video/upload/happyclicks/${videoId}.jpg`}
+  class="hacl-post__video"
+  alt={`${altText}`}
+  autoplay
+  loop
+  muted
+  playsinline
+  controls
+  width="1920"
+  height="1080"
+>
+  <source
+    src={`https://res.cloudinary.com/frontendhorse/video/upload/happyclicks/${videoId}.webm`}
+    type="video/webm"
+  />
+  <source
+    src={`https://res.cloudinary.com/frontendhorse/video/upload/happyclicks/${videoId}.mp4`}
+    type="video/mp4"
+  />
+  <source
+    src={`https://res.cloudinary.com/frontendhorse/video/upload/happyclicks/${videoId}.ogv`}
+    type="video/ogg"
+  />
+</video>

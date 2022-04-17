@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CardGrid from '../components/CardGrid.svelte';
+import HorizontalTagList from '../components/HorizontalTagList.svelte';
+import { getAllPosts } from '../prismic.ts';
+
+const {posts, tags} = await getAllPosts();
+let title = 'Happy Clicks - Delightful Interaction Inspiration';
+
+---
+<BaseLayout title={title} permalink={'https://happyclicks.dev/'}  tags={tags} >
+  <main class="hacl-container">
+    <HorizontalTagList tags={tags} client:load pagePath={''} />
+    <CardGrid posts={posts} />
+  </main>
+</BaseLayout>

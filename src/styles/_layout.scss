@@ -1,0 +1,137 @@
+@use "theme" as *;
+
+// stylelint-disable-next-line selector-max-type
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: hacl-color("background");
+  color: $hacl-color-body;
+  font-family: $hacl-font-family;
+  scrollbar-width: thin;
+  scrollbar-color: $red-500 $gray-100;
+
+  &::-webkit-scrollbar {
+    width: 13px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: $gray-100;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $red-500;
+    background: linear-gradient(
+      180deg,
+      $red-500 0%,
+      $yellow-500 50%,
+      $blue-500 100%
+    );
+    border-radius: 10px;
+    box-shadow: inset 2px 2px 3px 0 rgba($yellow-100, 0.5);
+  }
+}
+
+// stylelint-disable selector-max-type, selector-no-qualifying-type
+main,
+main.hacl-container,
+.hacl-container {
+  padding-top: 2rem;
+  padding-bottom: 5vh;
+}
+
+footer {
+  margin-top: auto;
+}
+
+article {
+  max-width: 80ch;
+
+  > img {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+// stylelint-enable
+
+.hacl-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 1rem;
+}
+
+.hacl-column-container {
+  display: grid;
+  gap: 2rem 1.5rem;
+  grid-template-columns: 1fr;
+  grid-auto-rows: auto;
+  max-width: 100vw;
+  margin: 0 0.5rem;
+}
+
+@media screen and (min-width: 500px) {
+  .hacl-column-container {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    margin: 0 4rem;
+  }
+}
+
+// stylelint-disable-next-line selector-no-qualifying-type, selector-max-type
+ul.hacl-column-container {
+  padding-left: 0;
+}
+
+.hacl-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &--padded {
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+  }
+
+  &--center {
+    align-items: center;
+  }
+
+  // stylelint-disable-next-line selector-max-universal
+  *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.hacl-hero {
+  display: grid;
+  min-height: 40vh;
+  place-content: center;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+  text-align: center;
+}
+
+.hacl-row {
+  display: grid;
+  grid-gap: 1rem;
+
+  @media (min-width: 80ch) {
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+  }
+
+  &--center-content {
+    justify-content: center;
+  }
+
+  &--center-alignitems {
+    align-items: center;
+  }
+}
+
+// stylelint-disable-next-line selector-max-type
+hr {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  border: 1px solid hacl-color("secondary");
+}

@@ -1,0 +1,24 @@
+---
+import { getAllPosts } from '../../prismic.ts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CardGrid from '../../components/CardGrid.svelte';
+import HorizontalTagList from '../../components/HorizontalTagList.svelte';
+
+export async function getStaticPaths() {
+  const {tags} = await getAllPosts()
+  
+  return Object.keys(tags)
+    .map(tag => {
+    return { params: { uid: tags[tag].uid }, props: { tag:tags[tag], tags }}
+  })
+}
+
+const { tag, tags } = Astro.props;
+---
+
+  <BaseLayout title={`${tag.name} - Happy Clicks - Delightful Interaction Inspiration`} description={`Posts in category ${tag.name} with fun interactions!`} permalink={`https://happyclicks.dev/posts/${tag.uid}`} tags={tags} >
+  <main class="hacl-container">
+    <HorizontalTagList tags={tags} client:load pagePath={tag.uid} />
+    <CardGrid posts={tag.posts} />
+  </main>
+</BaseLayout>

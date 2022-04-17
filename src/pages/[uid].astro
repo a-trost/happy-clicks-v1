@@ -1,0 +1,40 @@
+---
+import { getAllPosts, getAllPages } from '../prismic.ts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PrismicText from '../components/PrismicText.astro'
+
+export async function getStaticPaths() {
+  const {posts, tags} = await getAllPosts()
+  const {pages} = await getAllPages()
+  return pages.map(page => {
+    return { params: { uid: page.uid }, props: { page, tags }}
+  })
+}
+
+const { page, tags } = Astro.props;
+const {uid} = Astro.request.params;
+const {data} = page;
+
+const title = ""
+
+---
+<BaseLayout
+  title={`${data.title} - Happy Clicks - Delightful interaction inspiration`}
+  permalink={`https://happyclicks.dev/${page.uid}`}
+  tags={tags}
+>
+  <main class="hacl-container">
+    <h1 class="hacl-h3">{data.title}</h1>
+    {data.body.map((slice, index) => {
+      return (
+        <div key={index}>
+          {slice.slice_type === "rich_text" && (
+            <PrismicText content={slice.primary.rich_text} />
+          )}
+        </div>
+      );
+    })}
+  </main>
+</BaseLayout>
+
+

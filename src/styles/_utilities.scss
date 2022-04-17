@@ -1,0 +1,89 @@
+@use "theme" as *;
+
+.hacl-content-maxlength {
+  max-width: 80ch;
+}
+
+.hacl-anchor {
+  display: inline-block;
+  margin-left: 0.25em;
+  transition: 180ms opacity ease-in-out;
+  opacity: 0.6;
+  font-size: 0.65em;
+  vertical-align: top;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+$hacl-alignments: left, center, right !default;
+
+@each $alignment in $hacl-alignments {
+  .hacl-text-align--#{$alignment} {
+    text-align: #{$alignment};
+
+    @if ($alignment == "center") {
+      > a {
+        align-self: center !important;
+      }
+    }
+  }
+}
+
+@each $key in $hacl-background-colors {
+  .hacl-background--#{$key} {
+    background-color: hacl-color($key);
+  }
+}
+
+@each $key in $hacl-ink-colors {
+  .hacl-ink--#{$key},
+  a.hacl-ink--#{$key} {
+    color: hacl-color(#{$key});
+  }
+
+  .hacl-ink--#{$key} > a:not(.hacl-button) {
+    color: inherit;
+  }
+}
+
+.hacl-mx-auto {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@each $key, $unit in $hacl-spacing {
+  .hacl-my-#{$key} {
+    margin-top: $unit;
+    margin-bottom: $unit;
+  }
+
+  .hacl-mt-#{$key} {
+    margin-top: $unit;
+  }
+}
+
+.hacl-mb-none {
+  margin-bottom: 0;
+}
+
+.hacl-text-center {
+  text-align: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

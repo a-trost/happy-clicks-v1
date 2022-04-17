@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getAllPosts } from '../prismic.ts';
+
+const {posts, tags} = await getAllPosts();
+
+let title = 'Happy Clicks - Delightful Interaction Inspiration';
+
+---
+<BaseLayout title={title} permalink={'https://happyclicks.dev/'} tags={tags}>
+<main class="hacl-container hacl-mx-auto hacl-submit">
+  <h1 class="hacl-h3 hacl-text-center">Submit a delightful interaction</h1>
+
+  <form
+    class="hacl-form"
+    name="submission"
+    method="POST"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+    action="/submit-success"
+  >
+    <p>
+      <label>URL <input type="url" name="url" required /></label>
+    </p>
+    <p class="hidden">
+      <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+    </p>
+    <p>
+      <label>What interaction should we highlight? <textarea name="message"></textarea></label>
+    </p>
+    <p>
+      <label>Your name (optional) <input type="text" name="contributor" /></label>
+    </p>
+    <p>
+      <button type="submit">Submit</button>
+    </p>
+  </form>
+</main>
+</BaseLayout>

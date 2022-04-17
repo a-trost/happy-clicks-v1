@@ -1,0 +1,47 @@
+@use "theme" as *;
+
+.hacl-categoryCard {
+  display: grid;
+  grid-template-areas: "grid";
+  position: relative;
+  place-content: center;
+  width: 100%;
+  height: 100%;
+  max-width: 650px;
+  background: $blue-800;
+  transition: 180ms box-shadow ease-in;
+  border-radius: $hacl-border-radius;
+  overflow: hidden;
+
+  &:hover,
+  &:focus-within {
+    box-shadow: 0 0 0 3px hacl-color("primary");
+  }
+
+  &__image {
+    grid-area: grid;
+    opacity: 5%;
+  }
+
+  &__count {
+    display: flex;
+    grid-area: grid;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 16px;
+    align-items: flex-end;
+    justify-content: flex-end;
+    color: $yellow-100;
+  }
+
+  &__link {
+    grid-area: grid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    z-index: 2;
+    color: $yellow-100;
+    font-size: 2.5rem;
+  }
+}

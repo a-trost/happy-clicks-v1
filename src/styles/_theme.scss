@@ -1,0 +1,108 @@
+/* Color styles */
+$blue-900: hsla(217, 32.6%, 17.5%, 1);
+$blue-800: hsla(207, 45.5%, 25.9%, 1);
+$blue-700: hsla(202, 57.6%, 36.1%, 1);
+$blue-600: hsla(197, 68.7%, 45.1%, 1);
+$blue-500: hsla(197, 81.6%, 57.5%, 1);
+$blue-400: hsla(197, 84.5%, 67.1%, 1);
+$blue-300: hsla(197, 83.9%, 82.9%, 1);
+$blue-200: hsla(196, 83.3%, 92.9%, 1);
+$blue-100: hsla(196, 84.6%, 97.5%, 1);
+$yellow-900: hsla(38, 87.9%, 12.9%, 1);
+$yellow-800: hsla(38, 88%, 22.9%, 1);
+$yellow-700: hsla(41, 97.6%, 32.9%, 1);
+$yellow-600: hsla(42, 97.3%, 44.1%, 1);
+$yellow-500: hsla(45, 97.5%, 52.2%, 1);
+$yellow-400: hsla(45, 97.8%, 64.1%, 1);
+$yellow-300: hsla(45, 96.9%, 74.9%, 1);
+$yellow-200: hsla(45, 97.4%, 84.9%, 1);
+$yellow-100: hsla(45, 100%, 96.1%, 1);
+$red-900: hsla(16, 84.8%, 12.9%, 1);
+$red-800: hsla(15, 94.4%, 21%, 1);
+$red-700: hsla(16, 94%, 32.9%, 1);
+$red-600: hsla(16, 93.8%, 43.9%, 1);
+$red-500: hsla(16, 93.2%, 53.9%, 1);
+$red-400: hsla(16, 93.5%, 63.5%, 1);
+$red-300: hsla(15, 93.7%, 75.1%, 1);
+$red-200: hsla(15, 94.7%, 85.1%, 1);
+$red-100: hsla(16, 90.5%, 95.9%, 1);
+$gray-100: hsla(0, 0%, 98%, 1);
+$gray-200: hsla(0, 0%, 87.8%, 1);
+$gray-300: hsla(0, 0%, 78%, 1);
+$gray-400: hsla(0, 0%, 67.8%, 1);
+$gray-500: hsla(0, 0%, 58%, 1);
+$gray-600: hsla(0, 0%, 47.8%, 1);
+$gray-700: hsla(0, 0%, 38%, 1);
+$gray-800: hsla(0, 0%, 27.8%, 1);
+$gray-900: hsla(0, 0%, 18.8%, 1);
+$heart-light: #f5485c;
+$heart-dark: #a31325;
+
+$hacl-color-primary: $blue-500 !default;
+$hacl-color-secondary: $yellow-500 !default;
+$hacl-color-tertiary: $red-400 !default;
+$hacl-color-background: $gray-100 !default;
+
+$hacl-category-text: $blue-700 !default;
+$hacl-category-text-selected: $blue-800 !default;
+$hacl-category-background: $blue-200 !default;
+
+$hacl-button-yellow: $yellow-400 !default;
+$hacl-button-text: $blue-900 !default;
+
+$hacl-brand-colors: (
+  "primary": $hacl-color-primary,
+  "secondary": $hacl-color-secondary,
+) !default;
+
+$hacl-color-body: scale-color(
+  $hacl-color-primary,
+  $lightness: -70%,
+  $saturation: -50%
+) !default;
+$hacl-color-gray: mix(#767676, $hacl-color-body, 70%) !default;
+
+$hacl-colors: map-merge(
+  $hacl-brand-colors,
+  (
+    "text": $hacl-color-body,
+    "background": $hacl-color-background,
+    "light": $gray-100,
+    "dark": rgba($gray-900, 0.87),
+    "gray": $hacl-color-gray,
+  )
+);
+
+@function hacl-color($key) {
+  @return map-get($hacl-colors, $key);
+}
+
+// Add/remove to selectively generate `ink` (text color) classes
+$hacl-ink-colors: "primary", "secondary", "text", "gray", "light", "dark" !default;
+
+// Add/remove to selectively generate `background` (text color) classes
+$hacl-background-colors: "primary", "secondary", "background", "gray", "light",
+  "dark" !default;
+
+$hacl-button-variants: "primary", "secondary", "light", "gray" !default;
+$hacl-link-color: hacl-color("primary") !default;
+$hacl-border-radius: 8px !default;
+
+$hacl-font-family: "Josefin Sans", sans-serif !default;
+$hacl-strong-font-weight: 500 !default;
+$hacl-h1-font-size: 4.2rem !default;
+$hacl-h2-font-size: 3.15rem !default;
+$hacl-h3-font-size: 2rem !default;
+$hacl-h4-font-size: 1.35rem !default;
+$hacl-text-font-size: 1.15rem !default;
+$hacl-lead-font-size: 1.35rem !default;
+$hacl-credit-font-size: 1rem !default;
+$hacl-tag-font-size: 0.9rem !default;
+
+$hacl-spacing: (
+  sm: 1rem,
+  md: 3rem,
+  lg: 6rem,
+  xl: 10rem,
+  auto: "auto",
+) !default;

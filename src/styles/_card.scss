@@ -1,0 +1,69 @@
+@use "theme" as *;
+
+.hacl-card {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  max-width: 650px;
+  &__content {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 24px;
+  }
+
+  &__link {
+    width: 100%;
+    position: relative;
+    display: block;
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transition: 180ms box-shadow ease-in;
+      border-radius: $hacl-border-radius;
+      content: "";
+    }
+
+    &:focus {
+      outline: none;
+
+      &::before {
+        box-shadow: 0 0 0 3px hacl-color("primary");
+      }
+    }
+  }
+
+  &__video {
+    border-radius: $hacl-border-radius;
+    border: 0.75px solid rgb(221, 221, 221);
+    width: 100%;
+    height: auto;
+    transition: all 280ms ease-in-out;
+    &:hover {
+      border: 0.75px solid hacl-color("primary");
+      transform: scale(1.02);
+    }
+  }
+
+  &:hover a.hacl-card__title::before {
+    box-shadow: 0 0 0 3px hacl-color("primary");
+  }
+
+  &__credit {
+    font-weight: 400;
+    font-size: $hacl-credit-font-size;
+    color: hacl-color("gray");
+  }
+
+  &--outlined {
+    border: 1px solid scale-color($hacl-color-gray, $lightness: 50%);
+    background-color: transparent;
+    box-shadow: none;
+  }
+}

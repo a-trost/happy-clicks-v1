@@ -1,0 +1,118 @@
+@use "theme" as *;
+
+.hacl-footer {
+  position: relative;
+  background-color: $blue-900;
+  color: hacl-color("light");
+  width: 100%;
+  overflow: hidden;
+  &__container {
+    padding: 3rem;
+    gap: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 245px);
+    width: auto;
+    margin: auto;
+    justify-content: space-evenly;
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    z-index: 1;
+    &--meta {
+      gap: 1rem;
+      max-width: 190px;
+    }
+
+    &--navigation {
+      max-width: 190px;
+    }
+
+    &--categories {
+      max-width: 275px;
+    }
+  }
+
+  &__logo {
+    height: 60px;
+    width: auto;
+  }
+
+  &__heading {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  &__list {
+    margin: 0;
+    margin-left: 1rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__list-item {
+    & a {
+      color: $yellow-300;
+      text-decoration: none;
+    }
+  }
+
+  &__decoration {
+    position: absolute;
+    opacity: 70%;
+  }
+
+  &__red-circle {
+    top: 8rem;
+    left: 0;
+    transform: translateX(-80%);
+  }
+
+  &__blue-zig {
+    right: 0;
+    bottom: 0;
+    transform: translateX(40%) scale(0.7);
+    stroke: $blue-600;
+  }
+
+  &__yellow-squiggle {
+    right: -4rem;
+    top: -2rem;
+    transform: rotate(180deg);
+  }
+
+  @media (min-width: 768px) {
+    &__decoration {
+      position: absolute;
+      opacity: 95%;
+    }
+
+    &__red-circle {
+      top: -4rem;
+      right: -4rem;
+      bottom: unset;
+      left: unset;
+      transform: unset;
+    }
+
+    &__blue-zig {
+      right: -1rem;
+      bottom: -3rem;
+      top: unset;
+      left: unset;
+      transform: unset;
+    }
+
+    &__yellow-squiggle {
+      left: -4rem;
+      bottom: -2rem;
+      right: unset;
+      top: unset;
+      transform: unset;
+    }
+  }
+}

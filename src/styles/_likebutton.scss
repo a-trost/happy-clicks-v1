@@ -1,0 +1,47 @@
+@use "theme" as *;
+
+.hacl-like-button {
+  padding: 1rem;
+  margin-right: -1rem;
+  margin-top: -0.5rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: $hacl-color-body;
+
+  & .icon {
+    width: 25px;
+    height: auto;
+    color: $gray-400;
+    fill: $gray-100;
+    transition-property: color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+
+  &.liked {
+    color: $heart-dark;
+    & .icon {
+      color: $heart-dark;
+      fill: $heart-light;
+    }
+  }
+
+  &:hover {
+    & .icon {
+      fill: scale-color($heart-light, $lightness: +50%, $saturation: -10%);
+      color: $gray-500;
+    }
+
+    &.liked {
+      color: $heart-dark;
+      & .icon {
+        color: scale-color($heart-dark, $lightness: +20%, $saturation: -10%);
+        fill: scale-color($heart-light, $lightness: +20%, $saturation: -10%);
+      }
+    }
+  }
+}

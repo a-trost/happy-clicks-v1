@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getAllPosts } from '../prismic.ts';
+
+const {posts, tags} = await getAllPosts();
+
+let title = 'Happy Clicks - Delightful Interaction Inspiration';
+
+---
+<BaseLayout title={title} permalink={'https://happyclicks.dev/'} tags={tags}>
+  <main class="hacl-container hacl-mx-auto hacl-submit">
+    <h1 class="hacl-h3 hacl-text-center">Submission received!</h1>
+    <div class="hacl-mx-auto hacl-text-center">
+      <p>Thank you for your submission, I can't wait to check it out!</p>
+    </div>
+  </main>
+</BaseLayout>
