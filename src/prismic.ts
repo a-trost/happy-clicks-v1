@@ -73,7 +73,7 @@ export async function getAllPages() {
     return cachedPrismicPages;
   }
 
-  const pages = await client.getAllByType("page").then((res) => res.results);
+  const pages = await client.getAllByType("page");
 
   cachedPrismicPages = { pages };
   return cachedPrismicPages;
