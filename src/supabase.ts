@@ -1,9 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  import.meta.env.SUPABASE_URL,
-  import.meta.env.SUPABASE_PUBLIC_KEY
-);
+const supabaseURL = import.meta.env.SUPABASE_URL;
+const supabasePublicKey = import.meta.env.SUPABASE_PUBLIC_KEY;
+
+const supabase = createClient(supabaseURL, supabasePublicKey);
 
 let cachedSupabaseLikes;
 
