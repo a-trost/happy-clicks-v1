@@ -3,9 +3,13 @@ var Utf8 = require("crypto-js/enc-utf8");
 const client = require("@sendgrid/client");
 const sgMail = require("@sendgrid/mail");
 
-client.setApiKey(import.meta.env.SENDGRID_API_KEY);
-sgMail.setApiKey(import.meta.env.SENDGRID_API_KEY);
-const unconfirmedListID = import.meta.env.SENDGRID_UNCONFIRMED_LIST;
+const apiKey = import.meta.env.SENDGRID_API_KEY || process.env.SENDGRID_API_KEY;
+const unconfirmedListID =
+  import.meta.env.SENDGRID_UNCONFIRMED_LIST ||
+  process.env.SENDGRID_UNCONFIRMED_LIST;
+
+client.setApiKey(apiKey);
+sgMail.setApiKey(apiKey);
 
 let request = {};
 

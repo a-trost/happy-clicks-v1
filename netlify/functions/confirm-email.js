@@ -2,9 +2,15 @@ const client = require("@sendgrid/client");
 var Base64 = require("crypto-js/enc-base64");
 var Utf8 = require("crypto-js/enc-utf8");
 
-client.setApiKey(import.meta.env.SENDGRID_API_KEY);
-const unconfirmedListID = import.meta.env.SENDGRID_UNCONFIRMED_LIST;
-const confirmedListID = import.meta.env.SENDGRID_CONFIRMED_LIST;
+const apiKey = import.meta.env.SENDGRID_API_KEY || process.env.SENDGRID_API_KEY;
+
+client.setApiKey(apiKey);
+const unconfirmedListID =
+  import.meta.env.SENDGRID_UNCONFIRMED_LIST ||
+  process.env.SENDGRID_UNCONFIRMED_LIST;
+const confirmedListID =
+  import.meta.env.SENDGRID_CONFIRMED_LIST ||
+  process.env.SENDGRID_CONFIRMED_LIST;
 
 let request = {};
 
